@@ -18,7 +18,7 @@ function ulx.geoip( calling_ply, target_ply )
 				)
 			)
 
-		query_string = "http://freegeoip.net/json/" .. user_ip
+		query_string = "https://freegeoip.net/json/" .. user_ip
 
 		-- Get the JSON table containing the users' location, etc
 		http.Fetch( query_string, function ( json, number, headers, status )
