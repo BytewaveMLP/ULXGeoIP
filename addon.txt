@@ -1,0 +1,11 @@
+"AddonInfo"
+{
+	"name"				"ULX GeoIP Locator" 
+	"version"			"1.0"
+	"author_name"		"Bytewave"
+	"author_email"		"shortcircuit369@gmail.com"
+	"author_url"		"ponypwnage.net"
+	"info"				"ULX module to find a users' geographical location information from their IP."
+}
+
+
