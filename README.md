@@ -18,6 +18,7 @@ This script, when run on a player, prints semi-detailed (not 100% accurate) geog
 
 ### BIG SCARY DISCLAIMER TEXT
 
-I take **no** responsibility for the misuse of this script. Any and all instances of abuse are _solely the end-user's_ responsibility.
+I take **no** responsibility for the misuse of this script. Any and all instances of abuse are _solely the end-user's_ responsibility.  
+Please add a disclaimer or notice to your server's MOTD (or similar) to avoid potential legal issues. Ensure the end-user knows and understands they can be located by your servers' staff at _any time_ without their consent-- agreeing to that statement provides their consent to be located.
 
 This script is licensed under the MIT License.
