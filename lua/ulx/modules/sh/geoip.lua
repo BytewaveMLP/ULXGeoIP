@@ -61,8 +61,14 @@ function ulx.geoip( calling_ply, target_ply )
 				end
 				return
 			end )
+	else
+		if calling_ply:IsValid() then
+			calling_ply:PrintMessage( HUD_PRINTTALK, string.format( "Failed to fetch location - %s is not a valid player (possibly disconnected?).", target_ply:Nick() ) )
+		else
+			ServerLog( string.format( "Failed to fetch location - %s is not a valid player (possibly disconnected?).", target_ply:Nick() ) )
+		end
 	end
-	ulx.fancyLogAdmin( calling_ply, true, "#A got the GeoIP location of #T", target_ply )
+	ulx.fancyLogAdmin( calling_ply, "#A got the GeoIP location of #T", target_ply )
 end
 local geoip = ulx.command( CATEGORY_NAME, "ulx geoip", ulx.geoip, "!geoip" )
 geoip:addParam{ type=ULib.cmds.PlayerArg }
