@@ -12,6 +12,10 @@ This script, when run on a player, prints semi-detailed (not 100% accurate) geog
 - ulx geoip: Print a user's information to console  
 - !geoip: Same as above
 
+**Links:**  
+- [Facepunch Thread](http://facepunch.com/showthread.php?t=1433362)  
+- [Ulysses Thread](http://forums.ulyssesmod.net/index.php?topic=7704)
+
 ### BIG SCARY DISCLAIMER TEXT
 
 I take **no** responsibility for the misuse of this script. Any and all instances of abuse are _solely the end-user's_ responsibility.
