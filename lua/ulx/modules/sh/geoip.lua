@@ -8,13 +8,15 @@ end
 if CLIENT then
 	net.Receive( "ulx_geoip_msg",
 		function( len )
-			MsgN( "Received net message ulx_geoip_msg with length " .. len )
+			-- MsgN( "Received net message ulx_geoip_msg with length " .. len )
 
 			MsgN( net.ReadString() )
 		end )
 	net.Receive( "ulx_geoip_data",
 		function( len )
-			MsgN( "Received net message ulx_geoip_data with length" .. len )
+			-- MsgN( "Received net message ulx_geoip_data with length" .. len )
+
+			data = net.ReadTable()
 
 			for k, v in pairs( data ) do
 				MsgN( string.format( "%s: %s", k, v ) )
@@ -57,7 +59,7 @@ function ulx.geoip( calling_ply, target_ply )
 							net.WriteString( string.format( "Location data for %s (%s):", user_name, user_ip ) )
 						net.Send( calling_ply )
 
-						ServerLog( "Sent message ulx_geoip_msg to " .. calling_ply:Nick() )
+						-- ServerLog( "Sent message ulx_geoip_msg to " .. calling_ply:Nick() )
 					end
 				else
 					-- Tell console that this is in fact the information it's looking for
@@ -73,7 +75,7 @@ function ulx.geoip( calling_ply, target_ply )
 							net.WriteTable( data )
 						net.Send( calling_ply )
 
-						ServerLog( "Sent message ulx_geoip_data to " .. calling_ply:Nick() )
+						-- ServerLog( "Sent message ulx_geoip_data to " .. calling_ply:Nick() )
 					end
 				else
 					for k, v in pairs( data ) do
