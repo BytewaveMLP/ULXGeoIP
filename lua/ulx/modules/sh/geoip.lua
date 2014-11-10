@@ -1,49 +1,40 @@
 local CATEGORY_NAME = "Utility"
 
 if SERVER then
-	util.AddNetworkString( "ulx_geoip_msg" )
 	util.AddNetworkString( "ulx_geoip_data" )
 end
 
 if CLIENT then
-	net.Receive( "ulx_geoip_msg",
-		function( len )
-			-- MsgN( "Received net message ulx_geoip_msg with length " .. len )
-
-			MsgN( net.ReadString() )
-		end )
 	net.Receive( "ulx_geoip_data",
 		function( len )
-			-- MsgN( "Received net message ulx_geoip_data with length" .. len )
+			local rawdata = net.ReadString()
+			local data = util.JSONToTable( rawdata )
 
-			data = net.ReadTable()
-
-			for k, v in pairs( data ) do
-				MsgN( string.format( "%s: %s", k, v ) )
-			end
+			PrintTable( data )
 		end )
 end
 
 function ulx.geoip( calling_ply, target_ply )
-	if target_ply:IsValid() then
-		user_name = target_ply:Nick()
+	if IsValid(target_ply) then
+		local user_name = target_ply:Nick()
 
 		-- Thanks to Garry, LocalPlayer():IPAddress() returns <IP>:<PORT>. All we want is <IP>.
-		user_ip = target_ply:IPAddress():match("%d+%.%d+%.%d+%.%d+") or ""
+		local user_ip = target_ply:IPAddress():match("%d+%.%d+%.%d+%.%d+") or ""
 
 		-- Thanks, http://www.telize.com/ for the wonderful REST API!
 		-- (Switched from FreeGeoIP.net because of better information, considering switching back)
-		query_string = "http://www.telize.com/geoip/" .. user_ip
+		local query_string = "http://www.telize.com/geoip/" .. user_ip
 
 		-- Get the JSON table containing the users' location, etc
 		http.Fetch( query_string,
 			function ( json, number, headers, status )
-				local data = util.JSONToTable( json )
+				local rawdata = json
+				local data = util.JSONToTable( rawdata )
 
 				-- Type consistency checks
-				if data == nil or type( data ) ~= "table" then
-					if calling_ply:IsValid() then
-						calling_ply:PrintMessage( HUD_PRINTTALK, "Failed to fetch location - no or invalid data returned." )
+				if not data or type( data ) ~= "table" then
+					if IsValid( calling_ply ) then
+						calling_ply:ChatPrint( "Failed to fetch location - no or invalid data returned." )
 					else
 						ServerLog( "Failed to fetch location - no or invalid data returned." )
 					end
@@ -51,13 +42,11 @@ function ulx.geoip( calling_ply, target_ply )
 				end
 
 				-- Notifications
-				if calling_ply:IsValid() then
-					calling_ply:PrintMessage( HUD_PRINTTALK, string.format( "Location data for %s (%s) printed to console.", user_name, user_ip ) )
+				if IsValid( calling_ply ) then
+					calling_ply:ChatPrint( string.format( "Location data for %s (%s) printed to console.", user_name, user_ip ) )
 					-- Note that the information displayed is what they were looking for
 					if SERVER then
-						net.Start( "ulx_geoip_msg" )
-							net.WriteString( string.format( "Location data for %s (%s):", user_name, user_ip ) )
-						net.Send( calling_ply )
+						calling_ply:PrintMessage( HUD_PRINTCONSOLE, string.format( "Location data for %s (%s):", user_name, user_ip ) )
 
 						-- ServerLog( "Sent message ulx_geoip_msg to " .. calling_ply:Nick() )
 					end
@@ -67,12 +56,12 @@ function ulx.geoip( calling_ply, target_ply )
 				end
 
 				-- Tell target_ply they've been tracked
-				target_ply:PrintMessage( HUD_PRINTTALK, "An admin captured your GeoIP data." )
+				target_ply:ChatPrint( "An admin captured your GeoIP data." )
 
-				if calling_ply:IsValid() then
+				if IsValid( calling_ply ) then
 					if SERVER then
 						net.Start( "ulx_geoip_data" )
-							net.WriteTable( data )
+							net.WriteString( rawdata )
 						net.Send( calling_ply )
 
 						-- ServerLog( "Sent message ulx_geoip_data to " .. calling_ply:Nick() )
@@ -85,8 +74,8 @@ function ulx.geoip( calling_ply, target_ply )
 			end,
 			function ( status, user_name )
 				-- Display HTTP status code to calling_ply
-				if calling_ply:IsValid() then
-					calling_ply:PrintMessage( HUD_PRINTTALK, string.format( "Failed to fetch location - HTTP request failed with status code %s.", status ) )
+				if IsValid( calling_ply ) then
+					calling_ply:ChatPrint( string.format( "Failed to fetch location - HTTP request failed with status code %s.", status ) )
 				else 
 					ServerLog( string.format( "Failed to fetch location - HTTP request failed with status code %s.", status ) )
 				end
@@ -94,10 +83,10 @@ function ulx.geoip( calling_ply, target_ply )
 			end )
 	else
 		-- Target ply validity checks
-		if calling_ply:IsValid() then
-			calling_ply:PrintMessage( HUD_PRINTTALK, string.format( "Failed to fetch location - %s is not a valid player (possibly disconnected?).", target_ply:Nick() ) )
+		if IsValid( calling_ply ) then
+			calling_ply:ChatPrint( string.format( "Failed to fetch location - %s is not a valid player (possibly disconnected?).", user_name ) )
 		else
-			ServerLog( string.format( "Failed to fetch location - %s is not a valid player (possibly disconnected?).", target_ply:Nick() ) )
+			ServerLog( string.format( "Failed to fetch location - %s is not a valid player (possibly disconnected?).", user_name ) )
 		end
 	end
 
