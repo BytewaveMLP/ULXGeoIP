@@ -36,22 +36,23 @@ function ulx.geoip( calling_ply, target_ply )
 
 	if SERVER then
 		geoip_capture( target_ply,
-		function( data )
-			if not calling_ply:IsPlayer() then for k, v in pairs( util.JSONToTable( data ) ) do ServerLog( k..":    "..v ) end return end
+			function( data )
+				if not calling_ply:IsPlayer() then for k, v in pairs( util.JSONToTable( data ) ) do ServerLog( k..":    "..v ) end return end
 
-			net.Start( "geoip_data" )
-				net.WriteString( data )
-			net.Send( calling_ply )
-			ULib.tsay( calling_ply, "ULX GeoIP: Data for " .. user_name .. " has been printed to console." )
+				net.Start( "geoip_data" )
+					net.WriteString( data )
+				net.Send( calling_ply )
+				ULib.tsay( calling_ply, "ULX GeoIP: Data for " .. user_name .. " has been printed to console." )
 
-			ulx.fancyLogAdmin( calling_ply, "#A captured the GeoIP location data for #T", target_ply )
-		end,
-		function( err )
-			local errstr = "ULX GeoIP: Failed to fetch data: " .. err
-			if not calling_ply:IsPlayer() then ServerLog( errstr ) return end
+				ulx.fancyLogAdmin( calling_ply, "#A captured the GeoIP location data for #T", target_ply )
+			end,
+			function( err )
+				local errstr = "ULX GeoIP: Failed to fetch data: " .. err
+				if not calling_ply:IsPlayer() then ServerLog( errstr ) return end
 
-			ULib.tsayError( calling_ply, errstr )
-		end)
+				ULib.tsayError( calling_ply, errstr )
+			end
+		)
 	end
 end
 
