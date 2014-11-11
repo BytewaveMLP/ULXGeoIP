@@ -3,12 +3,14 @@ if SERVER then
 end
 
 if CLIENT then
-	net.Receive( "geoip_data", function( len )
-		local rawdata = net.ReadString()
-		local data = util.JSONToTable( rawdata )
+	net.Receive( "geoip_data",
+		function( len )
+			local rawdata = net.ReadString()
+			local data = util.JSONToTable( rawdata )
 
-		PrintTable( data )
-	end)
+			PrintTable( data )
+		end
+	)
 end
 
 function geoip_capture( ply, callback, errcallback )
