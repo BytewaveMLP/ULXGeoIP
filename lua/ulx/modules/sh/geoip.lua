@@ -60,5 +60,5 @@ end
 
 local geoip = ulx.command( "Utility", "ulx geoip", ulx.geoip, "!geoip" )
 geoip:addParam{ type = ULib.cmds.PlayerArg }
-geoip:defaultAccess( ULib.ACCESS_SUPERADMIN )
+geoip:defaultAccess( ULib.ACCESS_ADMIN )
 geoip:help( "Prints geographical information about a user from their IP to console." )
