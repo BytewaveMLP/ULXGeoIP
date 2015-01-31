@@ -3,8 +3,8 @@
 	"name"				"ULX GeoIP Locator" 
 	"version"			"2.0.0.1"
 	"author_name"		"Bytewave"
-	"author_email"		"shortcircuit369@gmail.com"
-	"author_url"		"ponypwnage.net"
+	"author_email"		"bytewave@ponypwnage.com"
+	"author_url"		"ponypwnage.com"
 	"info"				"ULX module to find a users' geographical location information from their IP."
 }
 
