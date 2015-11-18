@@ -1,3 +1,5 @@
+local GEOIP_QUERY_URL = "http://freegeoip.net/json/"
+
 if SERVER then
 	util.AddNetworkString( "geoip_data" )
 end
@@ -15,7 +17,7 @@ end
 
 function geoip_capture( ply, callback, errcallback )
 	local ip = ply:IPAddress():match( "%d+%.%d+%.%d+%.%d+" ) or ""
-	local query_string = "http://www.telize.com/geoip/" .. ip
+	local query_string = GEOIP_QUERY_URL .. ip
 
 	http.Fetch( query_string,
 		function( json, len, headers, status )
