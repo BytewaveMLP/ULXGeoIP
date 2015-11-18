@@ -6,7 +6,7 @@ GeoIP Location Services for ULX
 
 Welcome to ULX GeoIP, a tool made by Bytewave for finding the geographical location of users on a server running ULX and ULib.
 
-This script, when run on a player, prints semi-detailed (not 100% accurate) geographical data on the targeted player, provided by [Telize](http://www.telize.com/).
+This script, when run on a player, prints semi-detailed (not 100% accurate) geographical data on the targeted player, provided by [FreeGeoIP](https://freegeoip.net/).
 
 ### Commands
 
