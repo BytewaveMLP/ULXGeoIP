@@ -1,4 +1,4 @@
-local GEOIP_QUERY_URL = "http://freegeoip.net/json/"
+local GEOIP_QUERY_URL = "http://ip-api.com/json/"
 
 if SERVER then
 	util.AddNetworkString( "geoip_data" )
