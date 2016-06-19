@@ -1,7 +1,7 @@
 "AddonInfo"
 {
 	"name"				"ULX GeoIP Locator" 
-	"version"			"2.0.0.1"
+	"version"			"2.0.1.0"
 	"author_name"		"Bytewave"
 	"author_email"		"bytewave@ponypwnage.com"
 	"author_url"		"ponypwnage.com"
