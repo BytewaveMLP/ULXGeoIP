@@ -10,8 +10,6 @@ This script, when run on a player, prints semi-detailed (not 100% accurate) geog
 
 ### Commands and usage
 
-#### Commands
-
 `ulx geoip <player>`
 
 Options:
