@@ -29,8 +29,6 @@ local function geoip_capture(ply, callback, errcallback)
 	)
 end
 
-local function 
-
 function ulx.geoip(calling_ply, target_ply)
 	local user_name = target_ply:Nick()
 	ULib.tsay(calling_ply, "[ULX GeoIP]: Attempting to fetch GeoIP data for: " .. user_name)
